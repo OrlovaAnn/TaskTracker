@@ -21,7 +21,7 @@ public:
     void paintEvent(QPaintEvent *) override;
 
 private:
-    Ui::TasklistItemWidget* ui_;
+    std::unique_ptr<Ui::TasklistItemWidget> ui_;
 
     double planned_ = 0;
     double done_ = 0;

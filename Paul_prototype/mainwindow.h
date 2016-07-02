@@ -18,5 +18,5 @@ public:
     ~MainWindow();
 
 private:
-    Ui::MainWindow* ui_;
+    std::unique_ptr<Ui::MainWindow> ui_;
 };
