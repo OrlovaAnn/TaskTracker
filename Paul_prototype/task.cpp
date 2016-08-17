@@ -1,46 +1,50 @@
 #include "task.h"
 
-Task::Task()
+namespace Model
 {
 
-}
+    Task::Task(const QString& name,
+               const QString& description,
+               double planned,
+               double done /*=0.0*/) :
+        name_(name),
+        description_(description),
+        planned_(planned),
+        done_(done)
+    {}
 
-std::string Task::getName() const
-{
-    return name_;
-}
+    QString Task::getName() const
+    {
+        return name_;
+    }
 
-void Task::setName(const std::string& i_name)
-{
-    name_ = i_name;
-}
+    void Task::setName(const QString& name)
+    {
+        name_ = name;
+    }
 
-std::string Task::getDescription() const
-{
-    return description_;
-}
+    QString Task::getDescription() const
+    {
+        return description_;
+    }
 
-void Task::setDescription(const std::string& i_description)
-{
-    description_ = i_description;
-}
+    void Task::setDescription(const QString& description)
+    {
+        description_ = description;
+    }
 
-int Task::getOriginalEstimate() const
-{
-    return originalEstimate_;
-}
+    void Task::logWork(double amountDone)
+    {
+        done_ += amountDone;
+    }
 
-void Task::setOriginalEstimate(int originalEstimate)
-{
-    originalEstimate_ = originalEstimate;
-}
+    double Task::getPercentageDone() const
+    {
+        if(planned_ <= std::numeric_limits<double>::epsilon())
+        {
+            return 0.0;
+        }
+        return done_/planned_ * 100.0;
+    }
 
-int Task::getCurrentEstimate() const
-{
-    return currentEstimate_;
-}
-
-void Task::setCurrentEstimate(int currentEstimate)
-{
-    currentEstimate_ = currentEstimate;
 }

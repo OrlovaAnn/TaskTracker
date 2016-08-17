@@ -1,28 +1,30 @@
 #pragma once
 
-#include <string>
+#include <QString>
 
-class Task
+namespace Model
 {
-public:
-    Task();
 
-    std::string getName() const;
-    void setName(const std::string& i_name);
+    class Task
+    {
+    public:
+        Task(const QString& name, const QString& description, double planned, double done = 0.0);
 
-    std::string getDescription() const;
-    void setDescription(const std::string& i_description);
+        QString getName() const;
+        void setName(const QString& name);
 
-    int getOriginalEstimate() const;
-    void setOriginalEstimate(int originalEstimate);
+        QString getDescription() const;
+        void setDescription(const QString& description);
 
-    int getCurrentEstimate() const;
-    void setCurrentEstimate(int currentEstimate);
+        void logWork(double amountDone);
 
-private:
-    std::string name_ = "";
-    std::string description_ = "";
-    int originalEstimate_ = 0;
-    int currentEstimate_ = 0;
+        double getPercentageDone() const;
 
-};
+    private:
+        QString name_ = "New task";
+        QString description_ = "";
+        double planned_;
+        double done_ = 0.0;
+    };
+
+}
