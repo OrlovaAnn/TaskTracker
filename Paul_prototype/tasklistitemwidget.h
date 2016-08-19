@@ -3,17 +3,9 @@
 #include <memory>
 #include <task.h>
 
+#include "ui_tasklistitemwidget.h"
+
 #include <QWidget>
-
-namespace Ui
-{
-  class TasklistItemWidget;
-}
-
-namespace Model
-{
-    class Task;
-}
 
 class TasklistItemWidget : public QWidget
 {
@@ -26,8 +18,13 @@ public:
 public:
     void paintEvent(QPaintEvent *) override;
 
+private slots:
+    void on_logBtn_clicked();
+
 private:
-    std::unique_ptr<Ui::TasklistItemWidget> ui_;
+    Ui::TasklistItemWidget ui_;
 
     Model::Task task_;
+
+    void updateWidgetText();
 };

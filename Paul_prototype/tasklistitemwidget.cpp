@@ -1,22 +1,16 @@
 #include <QPainter>
 
 #include "tasklistitemwidget.h"
-#include "ui_tasklistitemwidget.h"
+
 #include "task.h"
 
 TasklistItemWidget::TasklistItemWidget(QWidget *parent, const QString & name, double planned, double done)
     : QWidget(parent)
-    , ui_(new Ui::TasklistItemWidget)
     , task_(name, "", planned, done)
 {
-    ui_->setupUi(this);
-    ui_->name->setText(name);
+    ui_.setupUi(this);
 
-    const int percentLeft = int(100 * (done - planned));
-    const int percentDone = 100 * done;
-    const char signLeft = percentLeft >= 0 ? '+' : '-';
-    const auto percentDoneText = QString("%1% (%2%3%)").arg(percentDone).arg(signLeft).arg(abs(percentLeft));
-    ui_->percentDone->setText(percentDoneText);
+    updateWidgetText();
 }
 
 TasklistItemWidget::~TasklistItemWidget()
@@ -25,6 +19,8 @@ TasklistItemWidget::~TasklistItemWidget()
 
 void TasklistItemWidget::paintEvent(QPaintEvent * p)
 {
+    updateWidgetText();
+
     QPainter painter(this);
 
     const int wDone = int(size().width() * task_.getDone());
@@ -44,4 +40,24 @@ void TasklistItemWidget::paintEvent(QPaintEvent * p)
     }
 
     QWidget::paintEvent(p);
+}
+
+void TasklistItemWidget::on_logBtn_clicked()
+{
+    task_.logWork(0.1);
+    repaint();
+}
+
+void TasklistItemWidget::updateWidgetText()
+{
+    const double& done = task_.getDone();
+    const double& planned = task_.getPlanned();
+    const auto& name = task_.getName();
+
+    const int percentLeft = int(100 * (done - planned));
+    const int percentDone = 100 * done;
+    const char signLeft = percentLeft >= 0 ? '+' : '-';
+    const auto percentDoneText = QString("%1% (%2%3%)").arg(percentDone).arg(signLeft).arg(abs(percentLeft));
+    ui_.percentDone->setText(percentDoneText);
+    ui_.name->setText(name);
 }
