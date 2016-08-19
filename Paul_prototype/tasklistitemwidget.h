@@ -1,12 +1,18 @@
 #pragma once
 
 #include <memory>
+#include <task.h>
 
 #include <QWidget>
 
 namespace Ui
 {
   class TasklistItemWidget;
+}
+
+namespace Model
+{
+    class Task;
 }
 
 class TasklistItemWidget : public QWidget
@@ -23,6 +29,5 @@ public:
 private:
     std::unique_ptr<Ui::TasklistItemWidget> ui_;
 
-    double planned_ = 0;
-    double done_ = 0;
+    std::unique_ptr<Model::Task> task_;
 };
