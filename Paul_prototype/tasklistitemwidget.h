@@ -13,6 +13,7 @@ class TasklistItemWidget : public QWidget
 
 public:
     TasklistItemWidget(QWidget *parent = nullptr, const QString & name = "", double planned = 0, double done = 0);
+    TasklistItemWidget(const Model::Task& task, QWidget *parent = nullptr);
     ~TasklistItemWidget();
 
 public:
