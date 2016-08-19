@@ -8,9 +8,7 @@ TasklistItemWidget::TasklistItemWidget(QWidget *parent, const QString & name, do
     : QWidget(parent)
     , task_(name, "", planned, done)
 {
-    ui_.setupUi(this);
-
-    updateWidgetText();
+    initialize();
 }
 
 TasklistItemWidget::~TasklistItemWidget()
@@ -60,4 +58,9 @@ void TasklistItemWidget::updateWidgetText()
     const auto percentDoneText = QString("%1% (%2%3%)").arg(percentDone).arg(signLeft).arg(abs(percentLeft));
     ui_.percentDone->setText(percentDoneText);
     ui_.name->setText(name);
+}
+void TasklistItemWidget::initialize()
+{
+    ui_.setupUi(this);
+    updateWidgetText();
 }

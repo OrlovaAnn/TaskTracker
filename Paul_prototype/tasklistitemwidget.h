@@ -26,5 +26,6 @@ private:
 
     Model::Task task_;
 
+    void initialize();
     void updateWidgetText();
 };
