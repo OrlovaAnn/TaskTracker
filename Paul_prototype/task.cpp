@@ -47,4 +47,19 @@ namespace Model
         return done_/planned_ * 100.0;
     }
 
+    double Task::getDone() const
+    {
+        return done_;
+    }
+
+    double Task::getPlanned() const
+    {
+        return planned_;
+    }
+
+    bool Task::overdue() const
+    {
+        return done_ >= planned_;
+    }
+
 }

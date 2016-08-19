@@ -20,6 +20,11 @@ namespace Model
 
         double getPercentageDone() const;
 
+        double getDone() const;
+
+        double getPlanned() const;
+
+        bool overdue() const;
     private:
         QString name_ = "New task";
         QString description_ = "";
