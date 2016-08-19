@@ -1,6 +1,7 @@
 #include <QPainter>
 
 #include "tasklistitemwidget.h"
+#include <qmessagebox.h>
 
 TasklistItemWidget::TasklistItemWidget(QWidget *parent, const QString & name, double planned, double done)
     : QWidget(parent)
@@ -64,6 +65,15 @@ void TasklistItemWidget::updateWidgetText()
     ui_.percentDone->setText(percentDoneText);
     ui_.name->setText(name);
 }
+
+void TasklistItemWidget::on_detailsBtn_clicked()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Description");
+    msgBox.setText(task_.getDescription());
+    msgBox.exec();
+}
+
 void TasklistItemWidget::initialize()
 {
     ui_.setupUi(this);

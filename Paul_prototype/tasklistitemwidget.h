@@ -22,6 +22,8 @@ public:
 private slots:
     void on_logBtn_clicked();
 
+    void on_detailsBtn_clicked();
+
 private:
     Ui::TasklistItemWidget ui_;
 
