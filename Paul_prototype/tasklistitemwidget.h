@@ -29,5 +29,5 @@ public:
 private:
     std::unique_ptr<Ui::TasklistItemWidget> ui_;
 
-    std::unique_ptr<Model::Task> task_;
+    Model::Task task_;
 };

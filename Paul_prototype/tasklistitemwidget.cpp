@@ -7,7 +7,7 @@
 TasklistItemWidget::TasklistItemWidget(QWidget *parent, const QString & name, double planned, double done)
     : QWidget(parent)
     , ui_(new Ui::TasklistItemWidget)
-    , task_(new Model::Task(name, "", planned, done))
+    , task_(name, "", planned, done)
 {
     ui_->setupUi(this);
     ui_->name->setText(name);
@@ -25,19 +25,14 @@ TasklistItemWidget::~TasklistItemWidget()
 
 void TasklistItemWidget::paintEvent(QPaintEvent * p)
 {
-    if(!task_)
-    {
-        return;
-    }
-
     QPainter painter(this);
 
-    const int wDone = int(size().width() * task_->getDone());
-    const int wPlanned = int(size().width() * task_->getPlanned());
+    const int wDone = int(size().width() * task_.getDone());
+    const int wPlanned = int(size().width() * task_.getPlanned());
 
     painter.fillRect(0, 0, width(), height(), QColor(220,220,220));
 
-    if (task_->overdue())
+    if (task_.overdue())
     {
         painter.fillRect(0, 0, wPlanned, height(), QColor(64,200,64));
         painter.fillRect(wPlanned, 0, wDone - wPlanned, height(), QColor(0,255,0, 128));
