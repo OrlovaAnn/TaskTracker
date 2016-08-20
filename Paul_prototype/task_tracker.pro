@@ -6,11 +6,14 @@ TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
     tasklistitemwidget.cpp \
-    task.cpp
+    task.cpp \
+    createtaskdialog.cpp
 
 HEADERS += mainwindow.h \
     tasklistitemwidget.h \
-    task.h
+    task.h \
+    createtaskdialog.h
 
 FORMS += mainwindow.ui \
-    tasklistitemwidget.ui
+    tasklistitemwidget.ui \
+    createtaskdialog.ui
