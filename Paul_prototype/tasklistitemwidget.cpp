@@ -1,5 +1,6 @@
 #include <QPainter>
 
+#include "ui_tasklistitemwidget.h"
 #include "tasklistitemwidget.h"
 #include <qmessagebox.h>
 
@@ -13,6 +14,7 @@ TasklistItemWidget::TasklistItemWidget(QWidget *parent, const QString & name, do
 TasklistItemWidget::TasklistItemWidget(const Model::Task& task, QWidget *parent)
     : QWidget(parent)
     , task_(task)
+    , ui_(new Ui::TasklistItemWidget)
 {
     initialize();
 }
@@ -62,8 +64,8 @@ void TasklistItemWidget::updateWidgetText()
     const int percentDone = 100 * done;
     const char signLeft = percentLeft >= 0 ? '+' : '-';
     const auto percentDoneText = QString("%1% (%2%3%)").arg(percentDone).arg(signLeft).arg(abs(percentLeft));
-    ui_.percentDone->setText(percentDoneText);
-    ui_.name->setText(name);
+    ui_->percentDone->setText(percentDoneText);
+    ui_->name->setText(name);
 }
 
 void TasklistItemWidget::on_detailsBtn_clicked()
@@ -76,6 +78,6 @@ void TasklistItemWidget::on_detailsBtn_clicked()
 
 void TasklistItemWidget::initialize()
 {
-    ui_.setupUi(this);
+    ui_->setupUi(this);
     updateWidgetText();
 }

@@ -3,9 +3,12 @@
 #include <memory>
 #include <task.h>
 
-#include "ui_tasklistitemwidget.h"
-
 #include <QWidget>
+
+namespace Ui
+{
+    class TasklistItemWidget;
+}
 
 class TasklistItemWidget : public QWidget
 {
@@ -25,7 +28,7 @@ private slots:
     void on_detailsBtn_clicked();
 
 private:
-    Ui::TasklistItemWidget ui_;
+    std::unique_ptr<Ui::TasklistItemWidget> ui_;
 
     Model::Task task_;
 
