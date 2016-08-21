@@ -12,7 +12,8 @@ SOURCES += main.cpp \
 HEADERS += mainwindow.h \
     tasklistitemwidget.h \
     task.h \
-    createtaskdialog.h
+    createtaskdialog.h \
+    tasksettings.h
 
 FORMS += mainwindow.ui \
     tasklistitemwidget.ui \
