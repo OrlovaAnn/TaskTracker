@@ -9,11 +9,6 @@ CreateTaskDialog::CreateTaskDialog()
     ui_->horizontalSlider->setMaximum(100);
 }
 
-QString CreateTaskDialog::getText() const
-{
-    return ui_->lineEdit->text();
-}
-
 Model::Task CreateTaskDialog::createTask() const
 {
     const auto& name = ui_->lineEdit->text();

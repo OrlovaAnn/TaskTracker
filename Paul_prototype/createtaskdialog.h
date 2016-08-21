@@ -15,8 +15,6 @@ class CreateTaskDialog : public QDialog
 public:
     CreateTaskDialog();
 
-    QString getText() const;
-
     Model::Task createTask() const;
 
 private:
