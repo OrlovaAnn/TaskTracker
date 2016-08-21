@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 
 #include "ui_mainwindow.h"
+#include "createtaskdialog.h"
 #include "tasklistitemwidget.h"
 #include "task.h"
 
@@ -23,6 +24,15 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    auto newDlg = std::make_unique<CreateTaskDialog>();
+    if(newDlg->exec())
+    {
+        drawNewTask(newDlg->getSettings());
+    }
 }
 
 void MainWindow::drawNewTask(const Model::TaskSettings& settings)
