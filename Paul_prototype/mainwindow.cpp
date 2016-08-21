@@ -11,18 +11,22 @@ MainWindow::MainWindow(QWidget *parent)
     ui_->setupUi(this);
 
     ui_->scrollArea->widget()->setLayout(new QVBoxLayout());
-    ui_->scrollArea->widget()->layout()->addWidget(new TasklistItemWidget(ui_->scrollArea->widget(), "Task name 1", 0.81, 0.62));
-    ui_->scrollArea->widget()->layout()->addWidget(new TasklistItemWidget(ui_->scrollArea->widget(), "Task name 2", 0.55, 0.77));
-    ui_->scrollArea->widget()->layout()->addWidget(new TasklistItemWidget(ui_->scrollArea->widget(), "Task name 3", 0.23, 0.89));
-    ui_->scrollArea->widget()->layout()->addWidget(new TasklistItemWidget(ui_->scrollArea->widget(), "Task name 4", 0.91, 0.00));
-    ui_->scrollArea->widget()->layout()->addWidget(new TasklistItemWidget(ui_->scrollArea->widget(), "Task name 5", 0.42, 0.42));
 
-    const QString description = "I would like to read all the books in the world!";
-    const Model::Task newTask("Read a book", description, 0.68, 0.15);
-    ui_->scrollArea->widget()->layout()->addWidget(new TasklistItemWidget(newTask, ui_->scrollArea->widget()));
+    drawNewTask({"Task name 1", "", 0.81, 0.62});
+    drawNewTask({"Task name 2", "", 0.55, 0.77});
+    drawNewTask({"Task name 3", "", 0.23, 0.89});
+    drawNewTask({"Task name 4", "", 0.91, 0.00});
+    drawNewTask({"Task name 5", "", 0.42, 0.42});
+    drawNewTask({"Read a book", "I would like to read all the books in the world!", 0.68, 0.15});
     ui_->scrollArea->widget()->layout()->addItem(new QSpacerItem(20, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 }
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::drawNewTask(const Model::TaskSettings& settings)
+{
+    const Model::Task newTask(settings);
+    ui_->scrollArea->widget()->layout()->addWidget(new TasklistItemWidget(newTask, ui_->scrollArea->widget()));
 }

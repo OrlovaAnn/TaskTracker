@@ -4,13 +4,6 @@
 #include "tasklistitemwidget.h"
 #include <qmessagebox.h>
 
-TasklistItemWidget::TasklistItemWidget(QWidget *parent, const QString & name, double planned, double done)
-    : QWidget(parent)
-    , task_(name, "", planned, done)
-{
-    initialize();
-}
-
 TasklistItemWidget::TasklistItemWidget(const Model::Task& task, QWidget *parent)
     : QWidget(parent)
     , task_(task)

@@ -2,18 +2,16 @@
 
 #include <QString>
 
+#include "tasksettings.h"
+
 namespace Model
 {
     /// Represents simple task with the state of the progress
     class Task
     {
     public:
-        /// ctor
-        /// \param  name         name of the task
-        /// \param  description  detailed description
-        /// \param  planned      initial time estimate
-        /// \param  done         amount of time already spent
-        Task(const QString& name, const QString& description, double planned, double done = 0.0);
+        /// Construct task from the settings
+        Task(const TaskSettings& settings);
 
         /// Getter & setter for the task name
         QString getName() const;
@@ -45,10 +43,7 @@ namespace Model
         /// \return  true if the time spent exceeds initial estimate
         bool overdue() const;
     private:
-        QString name_ = "New task";
-        QString description_ = "";
-        double planned_;
-        double done_ = 0.0;
+        TaskSettings settings_; /// task's properties
     };
 
 }

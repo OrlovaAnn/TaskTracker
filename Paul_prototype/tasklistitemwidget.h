@@ -15,7 +15,6 @@ class TasklistItemWidget : public QWidget
     Q_OBJECT
 
 public:
-    TasklistItemWidget(QWidget *parent = nullptr, const QString & name = "", double planned = 0, double done = 0);
     TasklistItemWidget(const Model::Task& task, QWidget *parent = nullptr);
     ~TasklistItemWidget();
 
