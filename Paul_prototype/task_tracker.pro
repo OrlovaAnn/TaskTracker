@@ -7,13 +7,15 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     tasklistitemwidget.cpp \
     task.cpp \
-    createtaskdialog.cpp
+    createtaskdialog.cpp \
+    tasklist.cpp
 
 HEADERS += mainwindow.h \
     tasklistitemwidget.h \
     task.h \
     createtaskdialog.h \
-    tasksettings.h
+    tasksettings.h \
+    tasklist.h
 
 FORMS += mainwindow.ui \
     tasklistitemwidget.ui \
