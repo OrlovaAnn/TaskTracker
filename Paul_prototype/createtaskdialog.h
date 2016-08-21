@@ -1,9 +1,9 @@
 #pragma once
 
 #include <QDialog>
-#include "task.h"
 #include <memory>
 
+#include "tasksettings.h"
 
 namespace Ui
 {
@@ -15,7 +15,7 @@ class CreateTaskDialog : public QDialog
 public:
     CreateTaskDialog();
 
-    Model::Task createTask() const;
+    Model::TaskSettings getSettings() const;
 
 private:
     std::unique_ptr<Ui::CreateTaskDialog> ui_;
