@@ -2,6 +2,8 @@
 
 #include <QDialog>
 #include "task.h"
+#include <memory>
+
 
 namespace Ui
 {
@@ -18,5 +20,5 @@ public:
     Model::Task createTask() const;
 
 private:
-    Ui::CreateTaskDialog* ui_;
+    std::unique_ptr<Ui::CreateTaskDialog> ui_;
 };
