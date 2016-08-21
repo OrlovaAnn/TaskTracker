@@ -10,11 +10,15 @@ namespace Ui
     class CreateTaskDialog;
 }
 
+/// Dialog to input data for the new task
 class CreateTaskDialog : public QDialog
 {
 public:
+    /// ctor
     CreateTaskDialog();
 
+    /// Construct task settings based on the dialog controls
+    /// \return  task settings to be used
     Model::TaskSettings getSettings() const;
 
 private:
