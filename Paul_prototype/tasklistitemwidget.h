@@ -15,7 +15,7 @@ class TasklistItemWidget : public QWidget
     Q_OBJECT
 
 public:
-    TasklistItemWidget(const Model::Task& task, QWidget *parent = nullptr);
+    TasklistItemWidget(Model::Task& task, QWidget *parent = nullptr);
     ~TasklistItemWidget();
 
 public:
@@ -29,7 +29,7 @@ private slots:
 private:
     std::unique_ptr<Ui::TasklistItemWidget> ui_;
 
-    Model::Task task_;
+    Model::Task& task_;
 
     void initialize();
     void updateWidgetText();

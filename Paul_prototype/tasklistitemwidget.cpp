@@ -4,7 +4,7 @@
 #include "tasklistitemwidget.h"
 #include <qmessagebox.h>
 
-TasklistItemWidget::TasklistItemWidget(const Model::Task& task, QWidget *parent)
+TasklistItemWidget::TasklistItemWidget(Model::Task& task, QWidget *parent)
     : QWidget(parent)
     , task_(task)
     , ui_(std::make_unique<Ui::TasklistItemWidget>())
