@@ -4,14 +4,20 @@
 
 #include "tasksettings.h"
 
+#include <memory>
+
 namespace Model
 {
     /// Represents simple task with the state of the progress
     class Task
     {
     public:
+
         /// Construct task from the settings
         Task(const TaskSettings& settings);
+
+        Task(const Task&) = default;
+        Task& operator=(const Task&) = default;
 
         /// Getter & setter for the task name
         QString getName() const;
@@ -45,5 +51,8 @@ namespace Model
     private:
         TaskSettings settings_; /// task's properties
     };
+
+    using TaskId = int;
+    using TaskPtr = std::unique_ptr<Task>;
 
 }
