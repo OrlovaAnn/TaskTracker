@@ -5,6 +5,8 @@
 
 namespace Model
 {
+    using TaskId = int;
+    using TaskPtr = std::unique_ptr<Task>;
 
     /// Represents a list of tasks
     class TaskList

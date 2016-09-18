@@ -52,7 +52,4 @@ namespace Model
         TaskSettings settings_; /// task's properties
     };
 
-    using TaskId = int;
-    using TaskPtr = std::unique_ptr<Task>;
-
 }
