@@ -3,7 +3,7 @@
 #include "ui_createtaskdialog.h"
 
 CreateTaskDialog::CreateTaskDialog()
-    : ui_(new Ui::CreateTaskDialog)
+    : ui_(std::make_unique<Ui::CreateTaskDialog>())
 {
     ui_->setupUi(this);
     ui_->horizontalSlider->setMaximum(100);

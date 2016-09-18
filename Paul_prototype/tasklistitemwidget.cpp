@@ -7,7 +7,7 @@
 TasklistItemWidget::TasklistItemWidget(const Model::Task& task, QWidget *parent)
     : QWidget(parent)
     , task_(task)
-    , ui_(new Ui::TasklistItemWidget)
+    , ui_(std::make_unique<Ui::TasklistItemWidget>())
 {
     initialize();
 }
