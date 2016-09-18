@@ -9,7 +9,9 @@ SOURCES += main.cpp \
     task.cpp \
     createtaskdialog.cpp \
     tasklist.cpp \
-    taskmanager.cpp
+    taskmanager.cpp \
+    taskstate.cpp \
+    tasksettings.cpp
 
 HEADERS += mainwindow.h \
     tasklistitemwidget.h \
@@ -17,7 +19,8 @@ HEADERS += mainwindow.h \
     createtaskdialog.h \
     tasksettings.h \
     tasklist.h \
-    taskmanager.h
+    taskmanager.h \
+    taskstate.h
 
 FORMS += mainwindow.ui \
     tasklistitemwidget.ui \

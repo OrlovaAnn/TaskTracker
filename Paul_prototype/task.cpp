@@ -28,31 +28,41 @@ namespace Model
 
     void Task::logWork(double amountDone)
     {
-        settings_.done_ += amountDone;
+        state().done_ += amountDone;
     }
 
     double Task::getPercentageDone() const
     {
-        if(settings_.planned_ <= std::numeric_limits<double>::epsilon())
+        if(getPlanned() <= std::numeric_limits<double>::epsilon())
         {
             return 0.0;
         }
-        return settings_.done_/settings_.planned_ * 100.0;
+        return getDone()/getPlanned() * 100.0;
     }
 
     double Task::getDone() const
     {
-        return settings_.done_;
+        return state().done_;
     }
 
     double Task::getPlanned() const
     {
-        return settings_.planned_;
+        return state().planned_;
     }
 
     bool Task::overdue() const
     {
-        return settings_.done_ >= settings_.planned_;
+        return getDone() >= getPlanned();
+    }
+
+    TaskState& Task::state()
+    {
+        return settings_.state();
+    }
+
+    const TaskState &Task::state() const
+    {
+        return settings_.state();
     }
 
 }

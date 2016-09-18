@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QString>
+#include "taskstate.h"
 
 namespace Model
 {
@@ -9,10 +10,17 @@ namespace Model
     /// and its state of the progress
     struct TaskSettings
     {
+        TaskSettings(QString name, QString description, double planned, double done = 0);
+
         QString name_;          /// name of the task
         QString description_;   /// detailed description
-        double planned_;        /// initial time estimate
-        double done_;           /// amount of time already spent
+        TaskState state_;       /// progress state of the task
+
+        /// Access task state member
+        TaskState& state();
+
+        /// Get task state
+        const TaskState& state() const;
     };
 
 }

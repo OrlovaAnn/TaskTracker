@@ -50,6 +50,9 @@ namespace Model
         bool overdue() const;
     private:
         TaskSettings settings_; /// task's properties
+
+        TaskState& state(); /// access state
+        const TaskState& state() const; /// get state
     };
 
 }
