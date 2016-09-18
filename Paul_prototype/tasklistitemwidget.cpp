@@ -18,6 +18,11 @@ TasklistItemWidget::~TasklistItemWidget()
 
 void TasklistItemWidget::paintEvent(QPaintEvent * p)
 {
+    const QColor GREEN(64,200,64);
+    const QColor LIGHT_GREEN(0,255,0, 128);
+    const QColor GREY(220,220,220);
+    const QColor LIGHT_RED(255,0,0, 128);
+
     updateWidgetText();
 
     QPainter painter(this);
@@ -25,17 +30,17 @@ void TasklistItemWidget::paintEvent(QPaintEvent * p)
     const int wDone = int(size().width() * task_.getDone());
     const int wPlanned = int(size().width() * task_.getPlanned());
 
-    painter.fillRect(0, 0, width(), height(), QColor(220,220,220));
+    painter.fillRect(0, 0, width(), height(), GREY);
 
     if (task_.overdue())
     {
-        painter.fillRect(0, 0, wPlanned, height(), QColor(64,200,64));
-        painter.fillRect(wPlanned, 0, wDone - wPlanned, height(), QColor(0,255,0, 128));
+        painter.fillRect(0, 0, wPlanned, height(), GREEN);
+        painter.fillRect(wPlanned, 0, wDone - wPlanned, height(), LIGHT_GREEN);
     }
     else
     {
-        painter.fillRect(0, 0, wDone, height(), QColor(64,200,64));
-        painter.fillRect(wDone, 0, wPlanned - wDone, height(), QColor(255,0,0, 128));
+        painter.fillRect(0, 0, wDone, height(), GREEN);
+        painter.fillRect(wDone, 0, wPlanned - wDone, height(), LIGHT_RED);
     }
 
     QWidget::paintEvent(p);
