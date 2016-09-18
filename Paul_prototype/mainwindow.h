@@ -1,6 +1,9 @@
 #pragma once
 
+#include "tasklistitemwidget.h"
+
 #include <memory>
+#include <vector>
 
 #include <QMainWindow>
 
@@ -12,6 +15,7 @@ namespace Ui
 namespace Model
 {
     struct TaskSettings;
+    class TaskList;
 }
 
 class MainWindow : public QMainWindow
@@ -27,6 +31,10 @@ private slots:
 
 private:
     std::unique_ptr<Ui::MainWindow> ui_;
+
+    using WidgetPtr = std::unique_ptr<TasklistItemWidget>;
+    std::vector<WidgetPtr> tasks_;
+
 
     void drawNewTask(const Model::TaskSettings& settings);
 };

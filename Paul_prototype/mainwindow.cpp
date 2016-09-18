@@ -3,7 +3,7 @@
 #include "ui_mainwindow.h"
 #include "createtaskdialog.h"
 #include "tasklistitemwidget.h"
-#include "task.h"
+#include "taskmanager.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -37,6 +37,12 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::drawNewTask(const Model::TaskSettings& settings)
 {
-    const Model::Task newTask(settings);
-    ui_->scrollArea->widget()->layout()->addWidget(new TasklistItemWidget(newTask, ui_->scrollArea->widget()));
+    auto& mgr = Model::TaskManager::get();
+    const auto newTaskId = mgr.createTask(settings);
+    auto* newTask = mgr.findTask(newTaskId);
+    if(!newTask)
+        return;
+
+    tasks_.emplace_back(std::make_unique<TasklistItemWidget>(*newTask, ui_->scrollArea->widget()));
+    ui_->scrollArea->widget()->layout()->addWidget(tasks_.back().get());
 }
