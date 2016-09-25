@@ -33,4 +33,7 @@ private:
 
     void initialize();
     void updateWidgetText();
+    void updatePercentDone();
+    void updateName();
+    void updateNameFont();
 };

@@ -53,18 +53,46 @@ void TasklistItemWidget::on_logBtn_clicked()
     repaint();
 }
 
-void TasklistItemWidget::updateWidgetText()
+
+/// Check if the task should be striked out in the list
+/// \param  task  task to check
+/// \return  true if the task should be striked out, false otherwise
+bool shouldStrikeOutTask(const Model::Task& task)
+{
+    return task.getSettings().state().type_ == Model::TaskStateType::Closed;
+}
+
+void TasklistItemWidget::updateNameFont()
+{
+    const bool shouldStrikeOut = shouldStrikeOutTask(task_);
+    auto font = ui_->name->font();
+    font.setStrikeOut(shouldStrikeOut);
+    ui_->name->setFont(font);
+}
+
+void TasklistItemWidget::updateName()
+{
+    const auto& name = task_.getName();
+    ui_->name->setText(name);
+    updateNameFont();
+}
+
+void TasklistItemWidget::updatePercentDone()
 {
     const double& done = task_.getDone();
     const double& planned = task_.getPlanned();
-    const auto& name = task_.getName();
 
     const int percentLeft = int(100 * (done - planned));
     const int percentDone = 100 * done;
     const char signLeft = percentLeft >= 0 ? '+' : '-';
     const auto percentDoneText = QString("%1% (%2%3%)").arg(percentDone).arg(signLeft).arg(abs(percentLeft));
     ui_->percentDone->setText(percentDoneText);
-    ui_->name->setText(name);
+}
+
+void TasklistItemWidget::updateWidgetText()
+{
+    updatePercentDone();
+    updateName();
 }
 
 void TasklistItemWidget::on_detailsBtn_clicked()
