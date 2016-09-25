@@ -2,6 +2,7 @@
 
 #include "ui_tasklistitemwidget.h"
 #include "tasklistitemwidget.h"
+#include "createtaskdialog.h"
 #include <qmessagebox.h>
 
 TasklistItemWidget::TasklistItemWidget(Model::Task& task, QWidget *parent)
@@ -68,10 +69,12 @@ void TasklistItemWidget::updateWidgetText()
 
 void TasklistItemWidget::on_detailsBtn_clicked()
 {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Description");
-    msgBox.setText(task_.getDescription());
-    msgBox.exec();
+    auto newDlg = std::make_unique<CreateTaskDialog>(task_.getSettings());
+    if(newDlg->exec())
+    {
+        const auto& settings = newDlg->getSettings();
+        task_.setSettings(settings);
+    }
 }
 
 void TasklistItemWidget::initialize()
