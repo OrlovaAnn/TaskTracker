@@ -31,55 +31,78 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="filterOpen">
         <property name="styleSheet">
          <string notr="true">QPushButton
 {
     background-color: grey;
     border-radius: 10px;
     padding: 5px;
-}</string>
+}
+
+ QPushButton:!checked {
+     background-color: none;     
+ }</string>
         </property>
         <property name="text">
-         <string>tag1</string>
+         <string>Open</string>
         </property>
         <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
          <bool>true</bool>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="filterInProgress">
         <property name="styleSheet">
          <string notr="true">QPushButton
+{
+    background-color: grey;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+QPushButton:!checked
 {
     background-color: none;
-    border-radius: 10px;
-    padding: 5px;
 }</string>
         </property>
         <property name="text">
-         <string>tag2</string>
+         <string>In progress</string>
         </property>
         <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
          <bool>true</bool>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="filterClosed">
         <property name="styleSheet">
          <string notr="true">QPushButton
 {
     background-color: grey;
     border-radius: 10px;
     padding: 5px;
+}
+
+QPushButton:!checked
+{
+    background-color: none;
 }</string>
         </property>
         <property name="text">
-         <string>tag3</string>
+         <string>Closed</string>
         </property>
         <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
          <bool>true</bool>
         </property>
        </widget>
