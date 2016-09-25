@@ -17,6 +17,8 @@ public:
     /// ctor
     CreateTaskDialog();
 
+    CreateTaskDialog(const Model::TaskSettings& settings);
+
     /// Construct task settings based on the dialog controls
     /// \return  task settings to be used
     Model::TaskSettings getSettings() const;
