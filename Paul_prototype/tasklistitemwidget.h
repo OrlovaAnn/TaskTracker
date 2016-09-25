@@ -18,6 +18,11 @@ public:
     TasklistItemWidget(Model::Task& task, QWidget *parent = nullptr);
     ~TasklistItemWidget();
 
+    bool hasType(Model::TaskStateType type) const
+    {
+        return task_.getSettings().state().type_ == type;
+    }
+
 public:
     void paintEvent(QPaintEvent *) override;
 
