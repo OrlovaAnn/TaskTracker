@@ -25,3 +25,8 @@ HEADERS += mainwindow.h \
 FORMS += mainwindow.ui \
     tasklistitemwidget.ui \
     createtaskdialog.ui
+
+DISTFILES +=
+
+RESOURCES += \
+    icons.qrc
