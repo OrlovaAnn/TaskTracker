@@ -48,6 +48,17 @@ namespace Model
         /// Check if the task is overdue
         /// \return  true if the time spent exceeds initial estimate
         bool overdue() const;
+
+        TaskSettings getSettings() const
+        {
+            return settings_;
+        }
+
+        void setSettings(const TaskSettings& settings)
+        {
+            settings_ = settings;
+        }
+
     private:
         TaskSettings settings_; /// task's properties
 
