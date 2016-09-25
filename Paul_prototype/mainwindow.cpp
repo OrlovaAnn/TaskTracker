@@ -46,3 +46,29 @@ void MainWindow::drawNewTask(const Model::TaskSettings& settings)
     tasks_.emplace_back(std::make_unique<TasklistItemWidget>(*newTask, ui_->scrollArea->widget()));
     ui_->scrollArea->widget()->layout()->addWidget(tasks_.back().get());
 }
+
+void MainWindow::updateVisibility(bool checked, Model::TaskStateType type)
+{
+    for(auto& task : tasks_)
+    {
+        if(!task->hasType(type))
+            continue;
+
+        checked ? task->show() : task->hide() ;
+    }
+}
+
+void MainWindow::on_filterOpen_toggled(bool checked)
+{
+    updateVisibility(checked, Model::TaskStateType::Open);
+}
+
+void MainWindow::on_filterInProgress_toggled(bool checked)
+{
+    updateVisibility(checked, Model::TaskStateType::InProgress);
+}
+
+void MainWindow::on_filterClosed_toggled(bool checked)
+{
+    updateVisibility(checked, Model::TaskStateType::Closed);
+}

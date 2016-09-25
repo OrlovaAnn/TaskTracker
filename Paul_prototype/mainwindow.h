@@ -29,6 +29,12 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_filterOpen_toggled(bool checked);
+
+    void on_filterInProgress_toggled(bool checked);
+
+    void on_filterClosed_toggled(bool checked);
+
 private:
     std::unique_ptr<Ui::MainWindow> ui_;
 
@@ -37,4 +43,5 @@ private:
 
 
     void drawNewTask(const Model::TaskSettings& settings);
+    void updateVisibility(bool checked, Model::TaskStateType type);
 };
