@@ -5,7 +5,7 @@ namespace Model
 
     void TaskList::addTask(TaskId id, const TaskSettings& settings)
     {
-        tasks_.emplace(id, std::make_unique<Task>(settings));
+        tasks_.emplace(id, std::make_unique<Task>(id, settings));
     }
 
     size_t TaskList::tasksCount() const

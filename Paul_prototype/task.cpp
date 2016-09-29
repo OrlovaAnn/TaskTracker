@@ -2,13 +2,19 @@
 
 namespace Model
 {
-    Task::Task(const TaskSettings& settings)
-        : settings_(settings)
+    Task::Task(TaskId id, const TaskSettings& settings) :
+        id_(id),
+        settings_(settings)
     {}
+
+    TaskId Task::getId() const
+    {
+        return id_;
+    }
 
     QString Task::getName() const
     {
-        return settings_.name_;
+        return getSettings().name_;
     }
 
     void Task::setName(const QString& name)
@@ -18,7 +24,7 @@ namespace Model
 
     QString Task::getDescription() const
     {
-        return settings_.description_;
+        return getSettings().description_;
     }
 
     void Task::setDescription(const QString& description)
@@ -55,6 +61,16 @@ namespace Model
         return getDone() >= getPlanned();
     }
 
+    TaskSettings Task::getSettings() const
+    {
+        return settings_;
+    }
+
+    void Task::setSettings(const TaskSettings &settings)
+    {
+        settings_ = settings;
+    }
+
     TaskState& Task::state()
     {
         return settings_.state();
@@ -62,7 +78,7 @@ namespace Model
 
     const TaskState &Task::state() const
     {
-        return settings_.state();
+        return getSettings().state();
     }
 
 }

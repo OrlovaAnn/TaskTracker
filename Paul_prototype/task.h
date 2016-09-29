@@ -14,10 +14,13 @@ namespace Model
     public:
 
         /// Construct task from the settings
-        Task(const TaskSettings& settings);
+        Task(TaskId id, const TaskSettings& settings);
 
         Task(const Task&) = default;
         Task& operator=(const Task&) = default;
+
+        /// Getter for the task id
+        TaskId getId() const;
 
         /// Getter & setter for the task name
         QString getName() const;
@@ -49,17 +52,12 @@ namespace Model
         /// \return  true if the time spent exceeds initial estimate
         bool overdue() const;
 
-        TaskSettings getSettings() const
-        {
-            return settings_;
-        }
-
-        void setSettings(const TaskSettings& settings)
-        {
-            settings_ = settings;
-        }
+        /// Getter & setter for the task settings
+        TaskSettings getSettings() const;
+        void setSettings(const TaskSettings& settings);
 
     private:
+        TaskId id_;             /// unique id of the task
         TaskSettings settings_; /// task's properties
 
         TaskState& state(); /// access state
