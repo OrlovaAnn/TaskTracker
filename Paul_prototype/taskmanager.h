@@ -16,11 +16,10 @@ namespace Model
         /// Get the instance of the manager
         static TaskManager& get();
 
-        /// Create task from the params
-        /// \param  source  params to use for creation
+        /// Create task from the settings
+        /// \param  settings  params to use for creation
         /// \return  id of the newly created task
-        template<typename Source>
-        TaskId createTask(const Source& source);
+        TaskId createTask(const TaskSettings& settings);
 
         /// Find task by id
         /// \param  id  task id to search

@@ -14,16 +14,12 @@ namespace Model
         return tasks_.findTask(id);
     }
 
-    template<typename Source>
-    TaskId TaskManager::createTask(const Source& source)
+    TaskId TaskManager::createTask(const TaskSettings& settings)
     {
         const auto taskId = nextId_;
-        tasks_.addTask(taskId, source);
+        tasks_.addTask(taskId, settings);
         ++nextId_;
         return taskId;
     }
-
-    template TaskId TaskManager::createTask(const TaskSettings&);
-    template TaskId TaskManager::createTask(const Task&);
 
 }
