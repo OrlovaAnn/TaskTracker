@@ -18,9 +18,9 @@ public:
     TasklistItemWidget(Model::Task& task, QWidget *parent = nullptr);
     ~TasklistItemWidget();
 
-    bool hasType(Model::TaskStateType type) const
+    Model::TaskStateType getType() const
     {
-        return task_.getSettings().state().type_ == type;
+        return task_.getSettings().state().type_;
     }
 
 public:
@@ -30,6 +30,9 @@ private slots:
     void on_logBtn_clicked();
 
     void on_detailsBtn_clicked();
+
+signals:
+    void type_changed(Model::TaskId id);
 
 private:
     std::unique_ptr<Ui::TasklistItemWidget> ui_;
