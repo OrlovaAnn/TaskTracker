@@ -3,11 +3,6 @@
 namespace Model
 {
 
-    void TaskList::addTask(TaskId id, const Task& task)
-    {
-        tasks_.emplace(id, std::make_unique<Task>(task));
-    }
-
     void TaskList::addTask(TaskId id, const TaskSettings& settings)
     {
         tasks_.emplace(id, std::make_unique<Task>(settings));

@@ -10,9 +10,6 @@ namespace Model
     class TaskList
     {
     public:
-        /// Add task to the list
-        /// \param  task  task to add
-        void addTask(TaskId id, const Task& task);
 
         /// Add task to the list
         /// \param  settings settings to be used for the task
