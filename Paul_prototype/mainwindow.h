@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <QMainWindow>
+#include "taskfwd.h"
 
 namespace Ui
 {

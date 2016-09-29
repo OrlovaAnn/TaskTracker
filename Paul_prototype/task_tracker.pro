@@ -20,7 +20,8 @@ HEADERS += mainwindow.h \
     tasksettings.h \
     tasklist.h \
     taskmanager.h \
-    taskstate.h
+    taskstate.h \
+    taskfwd.h
 
 FORMS += mainwindow.ui \
     tasklistitemwidget.ui \

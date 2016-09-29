@@ -2,6 +2,7 @@
 
 #include <QString>
 #include "taskstate.h"
+#include "taskfwd.h"
 
 namespace Model
 {
