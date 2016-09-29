@@ -30,8 +30,8 @@ namespace Model
         TaskManager() = default;
         ~TaskManager() = default;
 
-        TaskList tasks_;      /// already created task
-        TaskId nextId_; /// id to be used for the next task creation
+        TaskList tasks_; /// already created task
+        TaskId nextId_;  /// id to be used for the next task creation
     };
 
 }
