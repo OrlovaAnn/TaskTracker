@@ -13,6 +13,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui_->scrollArea->widget()->setLayout(new QVBoxLayout());
 
+    addDefaultTasks();
+}
+
+void MainWindow::addDefaultTasks()
+{
     drawNewTask({"Task name 1", "", 0.81, 0.62});
     drawNewTask({"Task name 2", "", 0.55, 0.77});
     drawNewTask({"Task name 3", "", 0.23, 0.89});
@@ -43,32 +48,76 @@ void MainWindow::drawNewTask(const Model::TaskSettings& settings)
     if(!newTask)
         return;
 
-    tasks_.emplace_back(std::make_unique<TasklistItemWidget>(*newTask, ui_->scrollArea->widget()));
-    ui_->scrollArea->widget()->layout()->addWidget(tasks_.back().get());
+    auto* widget = ui_->scrollArea->widget();
+    if(!widget)
+        return;
+
+    tasks_[newTaskId] = std::make_unique<TasklistItemWidget>(*newTask, widget);
+    auto& newWidget = *tasks_.at(newTaskId);
+    widget->layout()->addWidget(&newWidget);
+    QObject::connect(&newWidget, SIGNAL(type_changed(Model::TaskId)), this, SLOT(on_task_type_changed(Model::TaskId)));
+    updateTaskVisibility(newWidget);
 }
 
-void MainWindow::updateVisibility(bool checked, Model::TaskStateType type)
+void MainWindow::updateTaskVisibility(Model::TaskId id)
 {
-    for(auto& task : tasks_)
+    auto& taskIt = tasks_.find(id);
+    if(taskIt == tasks_.end() || !taskIt->second)
+        return;
+
+    updateTaskVisibility(*taskIt->second);
+}
+
+void MainWindow::updateTaskVisibility(TasklistItemWidget& task)
+{
+    const auto type = task.getType();
+
+    const bool checked = isFilterChecked(type);
+    checked ? task.show() : task.hide() ;
+}
+
+void MainWindow::updateTasksVisibility()
+{
+    for(auto& pair : tasks_)
     {
-        if(!task->hasType(type))
+        if(!pair.second)
             continue;
 
-        checked ? task->show() : task->hide() ;
+        updateTaskVisibility(*pair.second);
     }
 }
 
-void MainWindow::on_filterOpen_toggled(bool checked)
+void MainWindow::on_filterOpen_toggled(bool)
 {
-    updateVisibility(checked, Model::TaskStateType::Open);
+    updateTasksVisibility();
 }
 
-void MainWindow::on_filterInProgress_toggled(bool checked)
+void MainWindow::on_filterInProgress_toggled(bool)
 {
-    updateVisibility(checked, Model::TaskStateType::InProgress);
+    updateTasksVisibility();
 }
 
-void MainWindow::on_filterClosed_toggled(bool checked)
+void MainWindow::on_filterClosed_toggled(bool)
 {
-    updateVisibility(checked, Model::TaskStateType::Closed);
+    updateTasksVisibility();
+}
+
+void MainWindow::on_task_type_changed(Model::TaskId id)
+{
+    updateTaskVisibility(id);
+}
+
+bool MainWindow::isFilterChecked(Model::TaskStateType type) const
+{
+    switch(type)
+    {
+    case Model::TaskStateType::Open:
+        return ui_->filterOpen->isChecked();
+    case Model::TaskStateType::InProgress:
+        return ui_->filterInProgress->isChecked();
+    case Model::TaskStateType::Closed:
+        return ui_->filterClosed->isChecked();
+    default:
+        return false;
+    }
 }
