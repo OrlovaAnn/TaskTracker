@@ -17,6 +17,16 @@ TasklistItemWidget::~TasklistItemWidget()
 {
 }
 
+Model::TaskStateType TasklistItemWidget::getType() const
+{
+    return task_.getSettings().state().type_;
+}
+
+const Model::Task& TasklistItemWidget::getTask() const
+{
+    return task_;
+}
+
 void TasklistItemWidget::paintEvent(QPaintEvent * p)
 {
     const QColor GREEN(64,200,64);

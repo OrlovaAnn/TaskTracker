@@ -18,10 +18,8 @@ public:
     TasklistItemWidget(Model::Task& task, QWidget *parent = nullptr);
     ~TasklistItemWidget();
 
-    Model::TaskStateType getType() const
-    {
-        return task_.getSettings().state().type_;
-    }
+    Model::TaskStateType getType() const;
+    const Model::Task& getTask() const;
 
 public:
     void paintEvent(QPaintEvent *) override;
