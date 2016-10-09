@@ -15,12 +15,6 @@ namespace Ui
     class MainWindow;
 }
 
-namespace Model
-{
-    struct TaskSettings;
-    class TaskList;
-}
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
