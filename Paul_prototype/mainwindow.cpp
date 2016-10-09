@@ -4,15 +4,24 @@
 #include "createtaskdialog.h"
 #include "tasklistitemwidget.h"
 #include "taskmanager.h"
+#include "taskfilterfactory.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui_(std::make_unique<Ui::MainWindow>())
 {
     ui_->setupUi(this);
+    typeButtons_ =
+    {
+        {Model::TaskStateType::Open,       ui_->showOpen      },
+        {Model::TaskStateType::InProgress, ui_->showInProgress},
+        {Model::TaskStateType::Closed,     ui_->showClosed    }
+    };
+    updateFilter();
+
+    connectToButtons();
 
     ui_->scrollArea->widget()->setLayout(new QVBoxLayout());
-
     addDefaultTasks();
 }
 
@@ -31,7 +40,16 @@ MainWindow::~MainWindow()
 {
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::connectToButtons()
+{
+    for(const auto& pair : typeButtons_)
+    {
+        QObject::connect(pair.second, SIGNAL(clicked()), this, SLOT(on_filteringUpdateNeeded()));
+    }
+    QObject::connect(ui_->searchLine, SIGNAL(editingFinished()), this, SLOT(on_filteringUpdateNeeded()));
+}
+
+void MainWindow::on_addNewTaskButton_clicked()
 {
     auto newDlg = std::make_unique<CreateTaskDialog>();
     if(newDlg->exec())
@@ -55,7 +73,7 @@ void MainWindow::drawNewTask(const Model::TaskSettings& settings)
     tasks_[newTaskId] = std::make_unique<TasklistItemWidget>(*newTask, widget);
     auto& newWidget = *tasks_.at(newTaskId);
     widget->layout()->addWidget(&newWidget);
-    QObject::connect(&newWidget, SIGNAL(type_changed(Model::TaskId)), this, SLOT(on_task_type_changed(Model::TaskId)));
+    QObject::connect(&newWidget, SIGNAL(task_changed(Model::TaskId)), this, SLOT(on_task_changed(Model::TaskId)));
     updateTaskVisibility(newWidget);
 }
 
@@ -70,10 +88,10 @@ void MainWindow::updateTaskVisibility(Model::TaskId id)
 
 void MainWindow::updateTaskVisibility(TasklistItemWidget& task)
 {
-    const auto type = task.getType();
+    if(!currentFilter_)
+        return;
 
-    const bool checked = isFilterChecked(type);
-    checked ? task.show() : task.hide() ;
+    (*currentFilter_)(task.getTask()) ? task.show() : task.hide();
 }
 
 void MainWindow::updateTasksVisibility()
@@ -87,37 +105,48 @@ void MainWindow::updateTasksVisibility()
     }
 }
 
-void MainWindow::on_filterOpen_toggled(bool)
-{
-    updateTasksVisibility();
-}
-
-void MainWindow::on_filterInProgress_toggled(bool)
-{
-    updateTasksVisibility();
-}
-
-void MainWindow::on_filterClosed_toggled(bool)
-{
-    updateTasksVisibility();
-}
-
-void MainWindow::on_task_type_changed(Model::TaskId id)
+void MainWindow::on_task_changed(Model::TaskId id)
 {
     updateTaskVisibility(id);
 }
 
-bool MainWindow::isFilterChecked(Model::TaskStateType type) const
+void MainWindow::on_filteringUpdateNeeded()
 {
-    switch(type)
+    updateFilter();
+    updateTasksVisibility();
+}
+
+bool MainWindow::shouldShowType(Model::TaskStateType type) const
+{
+    auto buttonIt = typeButtons_.find(type);
+    if(buttonIt == typeButtons_.end() || !buttonIt->second)
+        throw std::logic_error("Invalid task state type");
+
+    return buttonIt->second->isChecked();
+}
+
+void MainWindow::updateFilter()
+{
+    const auto& factory = Model::TaskFilterFactory::get();
+    auto filter = factory.getFilter(false); // show nothing by default
+    for(auto pair : typeButtons_)
     {
-    case Model::TaskStateType::Open:
-        return ui_->filterOpen->isChecked();
-    case Model::TaskStateType::InProgress:
-        return ui_->filterInProgress->isChecked();
-    case Model::TaskStateType::Closed:
-        return ui_->filterClosed->isChecked();
-    default:
-        return false;
+        if(!pair.second)
+            continue;  // not initialized button?..
+
+        const auto& type = pair.first;
+        if(!shouldShowType(type))
+            continue;
+
+        auto typeFilter = factory.getFilter(type);
+        filter = (filter || typeFilter);
     }
+    if(ui_->searchLine)
+    {
+        const auto& substr = ui_->searchLine->displayText();
+        if(!substr.isEmpty())
+            filter = (filter && factory.getFilter(substr));
+
+    }
+    currentFilter_ = std::make_unique<Model::TaskFilter>(filter);
 }
