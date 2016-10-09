@@ -31,7 +31,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="filterOpen">
+       <widget class="QPushButton" name="showOpen">
         <property name="styleSheet">
          <string notr="true">QPushButton
 {
@@ -56,7 +56,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="filterInProgress">
+       <widget class="QPushButton" name="showInProgress">
         <property name="styleSheet">
          <string notr="true">QPushButton
 {
@@ -82,7 +82,7 @@ QPushButton:!checked
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="filterClosed">
+       <widget class="QPushButton" name="showClosed">
         <property name="styleSheet">
          <string notr="true">QPushButton
 {
@@ -172,7 +172,7 @@ QPushButton:!checked
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="addNewTaskButton">
       <property name="font">
        <font>
         <pointsize>10</pointsize>
