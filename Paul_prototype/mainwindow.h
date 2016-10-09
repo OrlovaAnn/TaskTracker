@@ -15,6 +15,9 @@ namespace Ui
     class MainWindow;
 }
 
+/// Main window of the Task Tracker.
+/// Contains list of the tasks and
+/// allows tasks editing and filtering.
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
