@@ -1,5 +1,4 @@
 #include "taskfilterfactory.h"
-#include "taskfilter.h"
 
 namespace Model
 {

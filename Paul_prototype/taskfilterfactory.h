@@ -1,6 +1,7 @@
 #pragma once
 
 #include "taskfwd.h"
+#include "taskfilter.h"
 
 namespace Model
 {
