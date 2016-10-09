@@ -30,7 +30,7 @@ private slots:
     void on_detailsBtn_clicked();
 
 signals:
-    void type_changed(Model::TaskId id);
+    void task_changed(Model::TaskId id);
 
 private:
     std::unique_ptr<Ui::TasklistItemWidget> ui_;

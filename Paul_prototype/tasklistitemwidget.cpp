@@ -107,16 +107,11 @@ void TasklistItemWidget::updateWidgetText()
 
 void TasklistItemWidget::on_detailsBtn_clicked()
 {
-    const auto oldSettings = task_.getSettings();
-    auto newDlg = std::make_unique<CreateTaskDialog>(oldSettings);
+    auto newDlg = std::make_unique<CreateTaskDialog>(task_.getSettings());
     if(newDlg->exec())
     {
-        const auto& newSettings = newDlg->getSettings();
-        task_.setSettings(newSettings);
-        if(newSettings.state().type_ != oldSettings.state().type_)
-        {
-            emit type_changed(task_.getId());
-        }
+        task_.setSettings(newDlg->getSettings());
+        emit task_changed(task_.getId());
     }
 }
 
