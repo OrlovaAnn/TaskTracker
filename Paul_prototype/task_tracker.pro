@@ -11,7 +11,9 @@ SOURCES += main.cpp \
     tasklist.cpp \
     taskmanager.cpp \
     taskstate.cpp \
-    tasksettings.cpp
+    tasksettings.cpp \
+    taskfilter.cpp \
+    taskfilterfactory.cpp
 
 HEADERS += mainwindow.h \
     tasklistitemwidget.h \
@@ -21,7 +23,9 @@ HEADERS += mainwindow.h \
     tasklist.h \
     taskmanager.h \
     taskstate.h \
-    taskfwd.h
+    taskfwd.h \
+    taskfilter.h \
+    taskfilterfactory.h
 
 FORMS += mainwindow.ui \
     tasklistitemwidget.ui \
