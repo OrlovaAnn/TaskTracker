@@ -3,7 +3,8 @@
 namespace Model
 {
 
-    enum class TaskStateType
+    /// Status of the task
+    enum class TaskStatus
     {
         Open,
         InProgress,
@@ -16,7 +17,7 @@ namespace Model
     public:
         double planned_;        /// initial time estimate
         double done_;           /// amount of time already spent
-        TaskStateType type_;    /// progress state
+        TaskStatus status_;     /// progress status
     };
 
 }

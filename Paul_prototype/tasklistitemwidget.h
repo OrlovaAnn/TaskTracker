@@ -18,7 +18,7 @@ public:
     TasklistItemWidget(Model::Task& task, QWidget *parent = nullptr);
     ~TasklistItemWidget();
 
-    Model::TaskStateType getType() const;
+    Model::TaskStatus getType() const;
     const Model::Task& getTask() const;
 
 public:

@@ -13,9 +13,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui_->setupUi(this);
     typeButtons_ =
     {
-        {Model::TaskStateType::Open,       ui_->showOpen      },
-        {Model::TaskStateType::InProgress, ui_->showInProgress},
-        {Model::TaskStateType::Closed,     ui_->showClosed    }
+        {Model::TaskStatus::Open,       ui_->showOpen      },
+        {Model::TaskStatus::InProgress, ui_->showInProgress},
+        {Model::TaskStatus::Closed,     ui_->showClosed    }
     };
     updateFilter();
 
@@ -116,7 +116,7 @@ void MainWindow::on_filteringUpdateNeeded()
     updateTasksVisibility();
 }
 
-bool MainWindow::shouldShowType(Model::TaskStateType type) const
+bool MainWindow::shouldShowType(Model::TaskStatus type) const
 {
     auto buttonIt = typeButtons_.find(type);
     if(buttonIt == typeButtons_.end() || !buttonIt->second)

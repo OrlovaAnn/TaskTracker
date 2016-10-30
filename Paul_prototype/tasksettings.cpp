@@ -6,7 +6,7 @@ namespace Model
     TaskSettings::TaskSettings(QString name, QString description, double planned, double done) :
         name_(name),
         description_(description),
-        state_{planned, done, TaskStateType::Open}
+        state_{planned, done, TaskStatus::Open}
     {
 
     }

@@ -17,9 +17,9 @@ TasklistItemWidget::~TasklistItemWidget()
 {
 }
 
-Model::TaskStateType TasklistItemWidget::getType() const
+Model::TaskStatus TasklistItemWidget::getType() const
 {
-    return task_.getSettings().state().type_;
+    return task_.getSettings().state().status_;
 }
 
 const Model::Task& TasklistItemWidget::getTask() const
@@ -69,7 +69,7 @@ void TasklistItemWidget::on_logBtn_clicked()
 /// \return  true if the task should be striked out, false otherwise
 bool shouldStrikeOutTask(const Model::Task& task)
 {
-    return task.getSettings().state().type_ == Model::TaskStateType::Closed;
+    return task.getSettings().state().status_ == Model::TaskStatus::Closed;
 }
 
 void TasklistItemWidget::updateNameFont()

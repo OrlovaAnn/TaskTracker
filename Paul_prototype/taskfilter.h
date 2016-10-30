@@ -104,15 +104,15 @@ namespace Model
     class FilterType : public FilterBase
     {
     public:
-        FilterType(TaskStateType type) : type_(type)
+        FilterType(TaskStatus type) : type_(type)
         {}
 
         virtual bool operator()(const Task& task) const
         {
-            return task.getSettings().state().type_ == type_;
+            return task.getSettings().state().status_ == type_;
         }
     private:
-        TaskStateType type_; // state to compare with
+        TaskStatus type_; // state to compare with
     };
 
     /// Filter which checks if the task's name contains substring
@@ -146,7 +146,7 @@ namespace Model
             }
         }
 
-        explicit TaskFilter(TaskStateType type) : filter_(std::make_shared<FilterType>(type))
+        explicit TaskFilter(TaskStatus type) : filter_(std::make_shared<FilterType>(type))
         {}
 
         explicit TaskFilter(const QString& str) : filter_(std::make_shared<FilterName>(str))

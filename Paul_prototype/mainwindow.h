@@ -41,7 +41,7 @@ private:
     std::unique_ptr<Ui::MainWindow> ui_;
 
     // Stores ui buttons which correspond to task types
-    std::map<Model::TaskStateType, QPushButton*> typeButtons_;
+    std::map<Model::TaskStatus, QPushButton*> typeButtons_;
 
     // Stores created widgets corresponding to some task id
     using WidgetPtr = std::unique_ptr<TasklistItemWidget>;
@@ -68,7 +68,7 @@ private:
     /// \param  type  task state type
     /// \return  true if the task should be shown,
     ///          false if the task should be hidden
-    bool shouldShowType(Model::TaskStateType type) const;
+    bool shouldShowType(Model::TaskStatus type) const;
 
     /// Update internal filter query
     void updateFilter();

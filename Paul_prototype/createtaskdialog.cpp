@@ -2,14 +2,14 @@
 
 #include "ui_createtaskdialog.h"
 
-static const std::map<int, Model::TaskStateType> s_groupBoxItems =
+static const std::map<int, Model::TaskStatus> s_groupBoxItems =
 {
-    {0, Model::TaskStateType::Open},
-    {1, Model::TaskStateType::InProgress},
-    {2, Model::TaskStateType::Closed}
+    {0, Model::TaskStatus::Open},
+    {1, Model::TaskStatus::InProgress},
+    {2, Model::TaskStatus::Closed}
 };
 
-int getIndex(const Model::TaskStateType& state)
+int getIndex(const Model::TaskStatus& state)
 {
     for(auto it : s_groupBoxItems)
     {
@@ -33,7 +33,7 @@ CreateTaskDialog::CreateTaskDialog(const Model::TaskSettings& settings)
     ui_->horizontalSlider->setMaximum(100);
     ui_->lineEdit->setText(settings.name_);
     ui_->textEdit->setText(settings.description_);
-    ui_->statusComboBox->setCurrentIndex(getIndex(settings.state().type_));
+    ui_->statusComboBox->setCurrentIndex(getIndex(settings.state().status_));
 }
 
 Model::TaskSettings CreateTaskDialog::getSettings() const
@@ -42,6 +42,6 @@ Model::TaskSettings CreateTaskDialog::getSettings() const
                 ui_->textEdit->toPlainText(),
                 static_cast<double>(ui_->horizontalSlider->value())/ui_->horizontalSlider->maximum()};
     const int currentIndex = ui_->statusComboBox->currentIndex();
-    settings.state().type_ = s_groupBoxItems.at(currentIndex);
+    settings.state().status_ = s_groupBoxItems.at(currentIndex);
     return settings;
 }
