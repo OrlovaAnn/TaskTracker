@@ -23,14 +23,14 @@ CreateTaskDialog::CreateTaskDialog()
     : ui_(std::make_unique<Ui::CreateTaskDialog>())
 {
     ui_->setupUi(this);
-    ui_->horizontalSlider->setMaximum(100);
 }
 
 CreateTaskDialog::CreateTaskDialog(const Model::TaskSettings& settings)
     : ui_(std::make_unique<Ui::CreateTaskDialog>())
 {
     ui_->setupUi(this);
-    ui_->horizontalSlider->setMaximum(100);
+    ui_->planned->setText(QString::number(settings.state_.planned_));
+    ui_->done->setText(QString::number(settings.state_.done_));
     ui_->lineEdit->setText(settings.name_);
     ui_->textEdit->setText(settings.description_);
     ui_->statusComboBox->setCurrentIndex(getIndex(settings.state().status_));
@@ -40,7 +40,8 @@ Model::TaskSettings CreateTaskDialog::getSettings() const
 {
     Model::TaskSettings settings{ui_->lineEdit->text(),
                 ui_->textEdit->toPlainText(),
-                static_cast<double>(ui_->horizontalSlider->value())/ui_->horizontalSlider->maximum()};
+                ui_->planned->text().toDouble(),
+                ui_->done->text().toDouble()};
     const int currentIndex = ui_->statusComboBox->currentIndex();
     settings.state().status_ = s_groupBoxItems.at(currentIndex);
     return settings;
