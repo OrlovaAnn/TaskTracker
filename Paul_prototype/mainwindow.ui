@@ -139,7 +139,7 @@ QPushButton:!checked
         </item>
         <item>
          <property name="text">
-          <string>Creation data</string>
+          <string>Creation date</string>
          </property>
         </item>
         <item>
